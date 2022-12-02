@@ -49,6 +49,6 @@ def test_result_score(a, b, score):
         (2, 2, 0),
     ],
 )
-def test_result_score(a, r, move):
+def test_calculate_move(a, r, move):
 
     assert calculate_move(a, r) == move
