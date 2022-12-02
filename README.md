@@ -1,8 +1,8 @@
-![workflow](https://github.com/jamiebarker0310/AdventOfCode2021/actions/workflows/python-app.yml/badge.svg)
+![workflow](https://github.com/jamiebarker0310/AdventOfCode2022/actions/workflows/python-app.yml/badge.svg)
 
 
-# AdventOfCode2021
-Solutions to Advent of Code 2021 with Python and using Pytest.
+# AdventOfCode2022
+Solutions to Advent of Code 2022 with Python and using Pytest.
 
 Also includes a template folder to generate templates for solutions using the run.
 
