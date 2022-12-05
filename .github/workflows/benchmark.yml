@@ -4,8 +4,6 @@
 name: Python application
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -29,17 +27,18 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
-
-    - name: Test with pytest
-      run: |
-        pytest
     - uses: actions/checkout@v3
       with:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.event.pull_request.head.ref }}
+        
+    - name: Run benchmarking
+      run: |
+        python benchmark.py
+    - name: Add benchmarking image
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: "ran benchmarking"
+        committer_name: GitHub Actions
+        committer_email: actions@github.com
+        push: true
