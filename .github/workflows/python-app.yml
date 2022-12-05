@@ -48,3 +48,4 @@ jobs:
         add: "benchmark.png"
         committer_name: GitHub Actions
         committer_email: actions@github.com
+        push: true
