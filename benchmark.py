@@ -46,7 +46,7 @@ def run_benchmarks(N=10):
 
 def save_figure(df):
 
-    plt.figure(figsize=(15,10))
+    plt.figure(figsize=(15, 10))
 
     s = sns.boxplot(df, palette="hls")
     s.set_ylabel("Run time (s)")
