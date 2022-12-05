@@ -34,3 +34,13 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Run benchmarking
+      run: |
+        python benchmark.py
+    - name: add benchmarking image
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: "running benchmarking"
+        add: "benchmark.png"
+        committer_name: GitHub Actions
+        committer_email: actions@github.com
