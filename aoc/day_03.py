@@ -1,4 +1,4 @@
-import string
+from string import ascii_letters as al
 
 
 def part_one(file_path: str) -> int:
@@ -20,11 +20,8 @@ def part_one(file_path: str) -> int:
 
     return sum(
         [
-            string.ascii_letters.index(
-                (set(line[: len(line) // 2]) & set(line[len(line) // 2 :])).pop()
-            )
-            + 1
-            for line in lines
+            al.index((set(li[: len(li) // 2]) & set(li[len(li) // 2 :])).pop()) + 1
+            for li in lines
         ]
     )
 
@@ -46,10 +43,7 @@ def part_two(file_path: str) -> int:
 
     return sum(
         [
-            string.ascii_letters.index(
-                set.intersection(*map(set, lines[i : i + 3])).pop()
-            )
-            + 1
+            al.index(set.intersection(*map(set, lines[i : i + 3])).pop()) + 1
             for i in range(0, len(lines), 3)
         ]
     )
