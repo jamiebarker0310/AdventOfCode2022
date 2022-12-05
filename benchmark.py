@@ -4,6 +4,7 @@ import time
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 
 import aoc
 
@@ -33,22 +34,25 @@ def get_modules():
     return module_dict
 
 
-def run_benchmarks():
+def run_benchmarks(N=10):
 
     module_dict = get_modules()
 
     for key, value in module_dict.items():
-        module_dict[key] = benchmark(*value)
+        module_dict[key] = benchmark(*value, N=N)
 
     return pd.DataFrame(module_dict)
 
 
 def save_figure(df):
 
-    df.median().plot(figsize=(15, 10), kind="bar")
-    plt.xticks(ticks=range(len(df.columns)), labels=df.columns, rotation=90)
-    plt.ylabel("seconds")
-    plt.yscale("log")
+    plt.figure(figsize=(15, 10))
+
+    s = sns.boxplot(df, palette="hls")
+    s.set_ylabel("Run time (s)")
+    s.set_yscale("log")
+    s.set_title("Solution run times")
+
     return plt.savefig("benchmark.png")
 
 
