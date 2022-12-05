@@ -16,7 +16,7 @@ def part_one(file_path: str) -> int:
 
     # read file
     with open(file_path) as f:
-        lines = f.readlines()
+        lines = f.read().splitlines()
 
     return sum(
         [
@@ -39,7 +39,7 @@ def part_two(file_path: str) -> int:
     """
 
     with open(file_path) as f:
-        lines = f.readlines()
+        lines = f.read().splitlines()
 
     return sum(
         [
