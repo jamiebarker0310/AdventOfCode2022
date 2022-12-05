@@ -52,7 +52,7 @@ def part_two(file_path: str):
         try:
             (set(range(p1a, p1b + 1)) & set(range(p2a, p2b + 1))).pop()
             count += 1
-        except:
+        except KeyError:
             continue
 
     return count
