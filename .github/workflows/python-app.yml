@@ -37,18 +37,16 @@ jobs:
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Test with pytest
-      run: pytest
-
-    - name: Run benchmarking
-      run: python benchmark.py
-
-    - name: Checking out to branch
-      uses: actions/checkout@v3
+      run: |
+        pytest
+    - uses: actions/checkout@v3
       with:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.event.pull_request.head.ref }}
-
-    - name: Commit changes
+    - name: Run benchmarking
+      run: |
+        python benchmark.py
+    - name: Add benchmarking image
       uses: EndBug/add-and-commit@v9
       with:
         message: "ran benchmarking"
