@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -39,17 +38,3 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - uses: actions/checkout@v3
-      with:
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        ref: ${{ github.event.pull_request.head.ref }}
-    - name: Run benchmarking
-      run: |
-        python benchmark.py
-    - name: Add benchmarking image
-      uses: EndBug/add-and-commit@v9
-      with:
-        message: "ran benchmarking"
-        committer_name: GitHub Actions
-        committer_email: actions@github.com
-        push: true
