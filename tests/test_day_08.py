@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from aoc.day_08 import part_one, part_two, scenic_score, calculate_distance
+from aoc.day_08 import part_one, part_two, scenic_score
 
 
 def test_part_one():
