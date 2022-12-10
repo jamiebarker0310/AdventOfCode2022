@@ -1,6 +1,7 @@
 import importlib
 import pkgutil
 import time
+from tqdm import tqdm
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,9 +10,9 @@ import seaborn as sns
 import aoc
 
 
-def benchmark(func: callable, file_path: str, N=10) -> list:
+def benchmark(func: callable, file_path: str, n=10) -> list:
 
-    return [time_function(func, file_path) for i in range(N)]
+    return [time_function(func, file_path) for _ in range(n)]
 
 
 def time_function(func: callable, file_path: str) -> float:
@@ -34,21 +35,28 @@ def get_modules():
     return module_dict
 
 
-def run_benchmarks(N=10):
+def run_benchmarks(n=10):
 
     module_dict = get_modules()
 
-    for key, value in module_dict.items():
-        module_dict[key] = benchmark(*value, N=N)
+    for key, value in tqdm(module_dict.items()):
+        module_dict[key] = benchmark(*value, n=n)
 
     return pd.DataFrame(module_dict)
 
 
 def save_figure(df):
 
+    df = df.melt(var_name="function", value_name="runtime")
+    df["day"] = df["function"].str.slice(4, 6).apply(int)
+    df["part"] = df["function"].str.slice(-1).apply(int)
+
+    plt.clf()
     plt.figure(figsize=(15, 10))
 
-    s = sns.boxplot(df, palette="hls")
+    s = sns.boxplot(
+        df, palette="hls", x="day", y="runtime", hue="part", showfliers=False
+    )
     s.set_ylabel("Run time (s)")
     s.set_yscale("log")
     s.set_title("Solution run times")
@@ -57,5 +65,5 @@ def save_figure(df):
 
 
 if __name__ == "__main__":
-    df = run_benchmarks()
+    df = run_benchmarks(n=25)
     save_figure(df)
