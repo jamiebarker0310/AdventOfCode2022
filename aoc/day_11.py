@@ -1,5 +1,4 @@
 import re
-import numpy as np
 from math import gcd
 from functools import reduce
 
