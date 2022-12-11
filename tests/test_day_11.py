@@ -23,7 +23,6 @@ def test_monkey_init():
         lines = f.readlines()
 
     monkey = Monkey(lines[0:6])
-    assert monkey.number == 0
     assert monkey.items == [79, 98]
     # assert test
     for i in range(1000):

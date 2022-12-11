@@ -9,7 +9,8 @@ class Monkey:
 
         Args:
             lines (str): input set of strings
-            inspection_worry (bool, optional): _description_. Defaults to True.
+            inspection_worry (bool, optional): whether to divide by 3 after monkeys inspects.
+                Defaults to True.
         """
         # get items monkey has
         self.items = [int(item) for item in lines[1].split(":")[-1].split(",")]
@@ -59,7 +60,7 @@ class Monkey:
         return output
 
 
-def monkey_chase(n: int, file_path: str) -> int:
+def monkey_chase(n: int, file_path: str, inspection_worry: bool = True) -> int:
     """
     runs monkey chase
     returns the product of the number of inspections
@@ -77,7 +78,10 @@ def monkey_chase(n: int, file_path: str) -> int:
     with open(file_path) as f:
         lines = f.readlines()
     # parse monkeys
-    monkeys = [Monkey(lines[i : i + 6]) for i in range(0, len(lines), 7)]
+    monkeys = [
+        Monkey(lines[i : i + 6], inspection_worry=inspection_worry)
+        for i in range(0, len(lines), 7)
+    ]
     # get LCM of monkey divisors
     lcm = reduce(
         lambda a, b: a * b // gcd(a, b), [monkey.divisor for monkey in monkeys]
@@ -123,7 +127,7 @@ def part_two(file_path: str) -> int:
         int: monkey business
     """
 
-    return monkey_chase(10_000, file_path)
+    return monkey_chase(10000, file_path, inspection_worry=False)
 
 
 if __name__ == "__main__":
