@@ -12,17 +12,17 @@ def parse_graph(file_path):
     # for y co-ordinate, character (reversed to start bottom as 0)
     for y, line in enumerate(lines[::-1]):
         # for x co-ordinate, character
-        for x, l in enumerate(line.strip()):
+        for x, char in enumerate(line.strip()):
             # if it's the start
-            if l == "S":
+            if char == "S":
                 start = (x, y)
-                l = "a"
+                char = "a"
             # if it's the end
-            if l == "E":
+            if char == "E":
                 end = (x, y)
-                l = "z"
+                char = "z"
             # add node
-            G.add_node((x, y), height=ord(l) - 97)
+            G.add_node((x, y), height=ord(char) - 97)
     # get all nodes and heights
     heights = nx.get_node_attributes(G, "height")
     for node1, height1 in heights.items():
