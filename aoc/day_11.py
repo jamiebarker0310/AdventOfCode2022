@@ -9,7 +9,7 @@ class Monkey:
 
         Args:
             lines (str): input set of strings
-            inspection_worry (bool, optional): whether to divide by 3 after 
+            inspection_worry (bool, optional): whether to divide by 3 after
             monkeys inspection.
                 Defaults to True.
         """

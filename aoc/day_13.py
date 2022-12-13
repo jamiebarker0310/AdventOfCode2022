@@ -2,6 +2,54 @@ import json
 from functools import cmp_to_key
 
 
+def compare_ints(l1: int, l2: int) -> bool:
+    """
+    compares ints
+
+    Args:
+        l1 (int): integer 1
+        l2 (int): integer 2
+
+    Returns:
+        bool: whether int1 is less than int2
+    """
+    # if in right order return true
+    if l1 < l2:
+        return True
+    # if equal return nothing
+    if l1 == l2:
+        return None
+    # if in wrong order return false
+    else:
+        return False
+
+
+def end_of_list(l1: list, l2: list, i: int) -> tuple:
+    """
+    checks if at end of each of lists
+
+    Args:
+        l1 (list): first list
+        l2 (list): second list
+        i (int): index
+
+    Returns:
+        tuple: (if i is end of list, index)
+    """
+    # Nothing if at the end of both lists
+    if i == len(l1) and i == len(l2):
+        return (True, None)
+    # True if at the end of l1
+    if i == len(l1):
+        return (True, True)
+    # False if at the end of l2
+    if i == len(l2):
+        return (True, False)
+    # else return False then none
+    else:
+        return (False, None)
+
+
 def compare_lists(l1: list, l2: list) -> bool:
     """
     compare lists according to predefined rules
@@ -15,31 +63,17 @@ def compare_lists(l1: list, l2: list) -> bool:
     """
     # if both elements are ints
     if isinstance(l1, int) and isinstance(l2, int):
-        # if in right order return true
-        if l1 < l2:
-            return True
-        # if equal return nothing
-        if l1 == l2:
-            return None
-        # if in wrong order return false
-        else:
-            return False
+        return compare_ints(l1, l2)
     # if both elements are a list
     if isinstance(l1, list) and isinstance(l2, list):
         # initialise result and index
         result = None
         i = 0
-        # whiel result is null
+        # while result is null
         while result is None:
-            # Nothing if at the end of both lists
-            if i == len(l1) and i == len(l2):
-                return None
-            # True if at the end of l1
-            if i == len(l1):
-                return True
-            # False if at the end of l2
-            if i == len(l2):
-                return False
+            complete, result = end_of_list(l1, l2, i)
+            if complete:
+                return result
             # else, result is the comparison of two items
             result = compare_lists(l1[i], l2[i])
             # look at the next item
