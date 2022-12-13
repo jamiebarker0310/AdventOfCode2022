@@ -9,7 +9,8 @@ class Monkey:
 
         Args:
             lines (str): input set of strings
-            inspection_worry (bool, optional): whether to divide by 3 after monkeys inspects.
+            inspection_worry (bool, optional): whether to divide by 3 after
+            monkeys inspection.
                 Defaults to True.
         """
         # get items monkey has
@@ -33,7 +34,8 @@ class Monkey:
         initialise empty output
 
         Returns:
-            list: list of tuples of form (monkey, item) showing which item is thrown where
+            list: list of tuples of form (monkey, item) showing which item
+            is thrown where
         """
         # initialise empty output
         output = []
