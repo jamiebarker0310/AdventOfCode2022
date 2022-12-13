@@ -138,9 +138,6 @@ def part_two(file_path: str) -> int:
         int: number of distinct positions final knot has moved to
     """
 
-    with open(file_path) as f:
-        lines = f.readlines()
-
     # read file
     with open(file_path) as f:
         lines = f.readlines()
