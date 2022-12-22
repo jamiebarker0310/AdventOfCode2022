@@ -65,5 +65,5 @@ def save_figure(df):
 
 
 if __name__ == "__main__":
-    df = run_benchmarks(n=25)
+    df = run_benchmarks(n=10)
     save_figure(df)
