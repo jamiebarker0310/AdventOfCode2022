@@ -10,9 +10,16 @@ import seaborn as sns
 import aoc
 
 
-def benchmark(func: callable, file_path: str, n=10) -> list:
+def benchmark(func: callable, file_path: str, seconds=3) -> list:
 
-    return [time_function(func, file_path) for _ in range(n)]
+    times = []
+
+    start = time.time()
+
+    while time.time() - start < seconds:
+        times.append(time_function(func, file_path))
+
+    return times
 
 
 def time_function(func: callable, file_path: str) -> float:
@@ -35,19 +42,19 @@ def get_modules():
     return module_dict
 
 
-def run_benchmarks(n=10):
+def run_benchmarks(seconds=3):
 
     module_dict = get_modules()
 
     for key, value in tqdm(module_dict.items()):
-        module_dict[key] = benchmark(*value, n=n)
+        module_dict[key] = benchmark(*value, seconds=seconds)
 
-    return pd.DataFrame(module_dict)
+    return pd.DataFrame.from_dict(module_dict, orient="index")
 
 
 def save_figure(df):
 
-    df = df.melt(var_name="function", value_name="runtime")
+    df = df.T.melt(var_name="function", value_name="runtime").dropna()
     df["day"] = df["function"].str.slice(4, 6).apply(int)
     df["part"] = df["function"].str.slice(-1).apply(int)
 
@@ -65,5 +72,5 @@ def save_figure(df):
 
 
 if __name__ == "__main__":
-    df = run_benchmarks(n=10)
+    df = run_benchmarks(seconds=3)
     save_figure(df)
