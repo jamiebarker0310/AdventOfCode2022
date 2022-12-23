@@ -104,7 +104,7 @@ def part_two(file_path: str, max_val=4000000) -> int:
     manhattan_dist = np.diff(data, axis=1)[:, 0]
     manhattan_dist = np.abs(np.real(manhattan_dist)) + np.abs(np.imag(manhattan_dist))
     # initialise counter object
-    counter = Counter()
+    counter_data = []
     # for each pair
     for i in range(len(data)):
         # calculate y values of perimeter
@@ -138,21 +138,11 @@ def part_two(file_path: str, max_val=4000000) -> int:
             )
         ]
         # append all values
-        counter.update(
-            np.concatenate([x_min, x_max]) + 1j * np.concatenate([y_range, y_range])
-        )
-    # filter on all coords that occur 4+ times
-    co_ords = np.array([key for key, value in counter.items() if value >= 4])
-    # calculate distances from all beacons
-    co_ords_grid, sensors = np.meshgrid(co_ords, data[:, 0])
-    coord_sensor_distance = co_ords_grid - sensors
-    coord_sensor_distance = np.abs(np.real(coord_sensor_distance)) + np.abs(
-        np.imag(coord_sensor_distance)
-    )
-    # get manhattan distance for each coord
-    _, man_dist = np.meshgrid(co_ords, manhattan_dist)
-    # ensure all are outside manhattan distance
-    free_space = co_ords[(coord_sensor_distance > man_dist).all(axis=0)][0]
+        counter_data.append(co_ords)
+
+    counter_data = np.concatenate(counter_data)
+    counter = Counter(counter_data)
+    free_space = counter.most_common(1)[0][0]
     # return calc value of free space
     return np.real(free_space) * 4000000 + np.imag(free_space)
 
